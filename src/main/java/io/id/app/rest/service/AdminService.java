@@ -7,6 +7,7 @@ package io.id.app.rest.service;
 
 import com.codahale.metrics.annotation.Timed;
 import io.id.app.controller.AdminController;
+import io.id.app.model.MemberModel;
 import io.id.app.model.UserModel;
 
 import io.id.app.rest.model.AuthenticateModel;
@@ -18,6 +19,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -29,33 +31,33 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class AdminService extends BaseService {
 
-    private AdminController userController;
+    private AdminController adminController;
 
     public AdminService() {
         log = getLogger(this.getClass());
-        this.userController = new AdminController();
+        this.adminController = new AdminController();
     }
 
-//    @GET
-//    @Path("/user/getalldetail")
-//    @Timed
-//    public Response getAllUserDetail() {
-//        Response res;
-//        List<UserModel> data = userController.getAllUserDetails();
-//        if (!data.isEmpty()) {
-//            res = buildResponse(Response.Status.OK, data);
-//        } else {
-//            res = buildResponse(Response.Status.NO_CONTENT, data);
-//        }
-//        return res;
-//    }
-    
+    @GET
+    @Path("/getmember")
+    @Timed
+    public Response getAllMember() {
+        Response res;
+        List<MemberModel> data = adminController.getAllMember();
+        if (!data.isEmpty()) {
+            res = buildResponse(Response.Status.OK, data);
+        } else {
+            res = buildResponse(Response.Status.NO_CONTENT, data);
+        }
+        return res;
+    }
+
     @GET
     @Path("/user/getalluser")
     @Timed
     public Response getAllUser() {
         Response res;
-        List<UserModel> data = userController.getAllUser();
+        List<UserModel> data = adminController.getAllUser();
         if (!data.isEmpty()) {
             res = buildResponse(Response.Status.OK, data);
         } else {
@@ -64,35 +66,43 @@ public class AdminService extends BaseService {
 
         return res;
     }
-    
-    
 
-//    @POST
-//    @Path("/adduser")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response userRegistration(UserRequestModel input) {
-//        Response res;
-//        boolean usernameIsExist = userController.checkUsername(input.getUsername());
-//        if (!usernameIsExist) {
-//            boolean emailIsExist = userController.checkEmail(input.getEmail());
-//            if (!emailIsExist) {
-//                boolean isValid = userController.userRegistration(input.getName(), input.getUsername(), input.getEmail(), input.getPhone(), input.getPassword(), input.getRole());
-//                if (isValid) {
-//                    ServerResponse serverResponse = new ServerResponse(Response.Status.CREATED, "Success");
-//                    res = Response.status(Response.Status.CREATED).entity(serverResponse).build();
-//                } else {
-//                    ServerResponse serverResponse = new ServerResponse(Response.Status.BAD_REQUEST, "Failed to create new user");
-//                    res = Response.status(Response.Status.BAD_REQUEST).entity(serverResponse).build();
-//                }
-//            } else {
-//                ServerResponse serverResponse = new ServerResponse(Response.Status.FORBIDDEN, "Email address already in used");
-//                res = Response.status(Response.Status.FORBIDDEN).entity(serverResponse).build();
-//            }
-//        } else {
-//            ServerResponse serverResponse = new ServerResponse(Response.Status.FORBIDDEN, "Username already in used");
-//            res = Response.status(Response.Status.FORBIDDEN).entity(serverResponse).build();
-//        }
-//
-//        return res;
-//    }
+    @POST
+    @Path("/user/add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createNewMember(MemberModel input) {
+        Response res;
+        boolean isExist = adminController.checkMemberCode(input.getMembercode());
+        if (!isExist) {
+            boolean isCreate = adminController.addNewMember(input.getMembercode(), input.getUsername(), input.getEmail(), input.getImageaddress(), input.getDescription(), input.getMemberlevelid(), input.getDepartmentid());
+            if (isCreate) {
+                ServerResponse serverResponse = new ServerResponse(Response.Status.CREATED, "Success");
+                res = Response.status(Response.Status.CREATED).entity(serverResponse).build();
+            } else {
+                ServerResponse serverResponse = new ServerResponse(Response.Status.INTERNAL_SERVER_ERROR, "Internal server error");
+                res = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(serverResponse).build();
+            }
+        } else {
+            ServerResponse serverResponse = new ServerResponse(Response.Status.CONFLICT, "Member code already exist");
+            res = Response.status(Response.Status.CONFLICT).entity(serverResponse).build();
+        }
+        return res;
+    }
+
+    @POST
+    @Path("/user/delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteMember(@QueryParam("departmentmemberid") int id) {
+        Response res;
+        boolean isRemoved = adminController.deleteMember(id);
+        if (isRemoved) {
+            ServerResponse serverResponse = new ServerResponse(Response.Status.OK, "Success");
+            res = Response.status(Response.Status.OK).entity(serverResponse).build();
+
+        } else {
+            ServerResponse serverResponse = new ServerResponse(Response.Status.INTERNAL_SERVER_ERROR, "Internal server error");
+            res = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(serverResponse).build();
+        }
+        return res;
+    }
 }

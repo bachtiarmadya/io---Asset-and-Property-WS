@@ -64,8 +64,8 @@ public class PasswordService extends BaseService {
             String token = tokenController.generateToken(input.getEmail());
             boolean isGenerate = tokenController.save(input.getEmail(), token);
             if (isGenerate) {
-                String subject = emailController.getSubject();
-                String body = emailController.getBody(input.getEmail(), token);
+                String subject = passwordController.getSubject();
+                String body = passwordController.getBody(input.getEmail(), token);
                 boolean isSend = emailController.sendEmail(input.getEmail(), subject, body);
                 if (isSend) {
                     HttpSession session = request.getSession();

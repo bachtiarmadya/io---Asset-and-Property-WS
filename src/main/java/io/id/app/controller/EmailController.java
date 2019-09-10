@@ -24,27 +24,6 @@ public class EmailController extends BaseController {
     public EmailController() {
         log = getLogger(this.getClass());
     }
-
-    public String getSubject() {
-        String subject = getConfig(ApplicationConfiguration.EMAIL_SUBJECT);
-        return subject;
-    }
-
-    public String getBody(String email, String token) {
-        String css = getConfig(ApplicationConfiguration.EMAIL_CSS);
-        String link = getConfig(ApplicationConfiguration.EMAIL_LINK);
-        String javascript = getConfig(ApplicationConfiguration.EMAIL_JS);
-        String template = getConfig(ApplicationConfiguration.EMAIL_TEMPLATE);
-        String result = template
-                .replace("[style_css]", css)
-                .replace("[javasript]", javascript)
-                .replace("[name]", email)
-                .replace("[generated_link]", link + token);
-        return result;
-    }
-    
-    
-
     public boolean sendEmail(String email, String subject, String body) {
         boolean isSend = false;
         //getConfig(ApplicationConfiguration.EMAIL_SUBJECT);
@@ -72,10 +51,8 @@ public class EmailController extends BaseController {
                     Message.RecipientType.TO,
                     InternetAddress.parse(email)
             );
-            message.setSubject(getConfig(ApplicationConfiguration.EMAIL_SUBJECT));
-           
-            String emailBody = body;
-            message.setText(emailBody);
+            message.setSubject(subject);
+            message.setText(body);
 
             Transport.send(message);
 

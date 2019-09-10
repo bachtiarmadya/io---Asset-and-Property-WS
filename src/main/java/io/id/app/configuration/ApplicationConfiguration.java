@@ -29,5 +29,11 @@ public class ApplicationConfiguration {
 
     // TOKEN CONFIG
     public static final String TOKEN_EXPIRY = "token.expiry";
+    
+    //OTP
+    public static final String OTP_EXPIRY = "otp.expiry";
+    public static final String OTP_SUBJECT = "otp.subject";
+    public static final String OTP_BODY = "otp.body";
+    public static final String OTP_CSS = "otp.css";
 
 }

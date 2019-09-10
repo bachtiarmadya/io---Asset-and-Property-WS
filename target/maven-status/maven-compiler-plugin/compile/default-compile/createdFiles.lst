@@ -27,8 +27,10 @@ io/id/app/util/http/model/HTTPRequest.class
 io/id/app/rest/service/RateService.class
 io/id/mobile/service/UserService.class
 io/id/app/model/AssetDetailsModel.class
+io/id/app/model/MemberModel.class
 io/id/app/rest/model/ValidateModel.class
 io/id/app/controller/EmailController.class
+io/id/app/controller/MemberController.class
 io/id/app/util/http/helper/HTTPClientHelper.class
 io/id/app/controller/RateController.class
 io/id/app/util/json/CustomObjectMapper.class
@@ -67,9 +69,11 @@ io/id/app/validator/EmailValidator.class
 io/id/server/config/ServerConfigurationManager.class
 io/id/app/util/json/JsonHelper.class
 io/id/app/model/UserModel.class
+io/id/app/controller/OTPController.class
 io/id/app/rest/model/ChangePasswordRequest.class
 io/id/app/controller/ProvinceController.class
 io/id/app/rest/model/SampleRequest.class
+io/id/app/rest/model/MemberActivationModel.class
 io/id/app/controller/UserController.class
 io/id/app/manager/RestServiceManager.class
 io/id/app/controller/Controller.class
@@ -85,6 +89,7 @@ io/id/app/controller/LoginController.class
 io/id/app/request/EditProvinceRequest.class
 io/id/app/util/http/model/HTTPRequest$1.class
 io/id/app/rest/model/AssetRequest.class
+io/id/Tester.class
 io/id/app/util/json/LocalDateTimeDeserializer.class
 io/id/app/util/rest/feature/JacksonFeature.class
 io/id/app/util/rest/exception/RESTException.class
@@ -93,7 +98,9 @@ io/id/app/controller/AssetController.class
 io/id/app/controller/PasswordController.class
 io/id/app/controller/EmailController$1.class
 io/id/app/controller/ConfigurationController.class
+io/id/app/rest/service/MemberService.class
 io/id/app/util/log/BaseLogger.class
+io/id/app/rest/model/MemberValidationModel.class
 io/id/app/rest/model/ServerResponse.class
 io/id/app/model/RateModel.class
 io/id/app/util/http/model/HTTPRequest$Builder.class

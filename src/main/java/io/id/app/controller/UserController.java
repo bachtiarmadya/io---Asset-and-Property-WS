@@ -54,13 +54,10 @@ public class UserController extends BaseController {
                 = "SELECT COUNT(1) FROM masterdepartmentmember WHERE email = :email";
 
         try ( Handle h = getHandle()) {
-            int count = h.createQuery(sql).bind("email", email).mapTo(Integer.class
-            ).findOnly();
-
+            int count = h.createQuery(sql).bind("email", email).mapTo(Integer.class).findOnly();
             if (count > 0) {
                 isExist = true;
             }
-
         } catch (Exception ex) {
             log.error(methodName, ex);
         }
