@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="io.id.assetframework_iot-asset_jar_0.1PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>io.id.test.Mastertype</class>
+    <class>io.id.test.Mastercity</class>
+    <class>io.id.test.Masterdepartmentmember</class>
+    <class>io.id.test.Sysuser</class>
+    <class>io.id.test.Masterdepartment</class>
+    <class>io.id.test.Masterfloor</class>
+    <class>io.id.test.Mastermemberlevel</class>
+    <class>io.id.test.Sysrole</class>
+    <class>io.id.test.Masterlocation</class>
+    <class>io.id.test.Masterbuilding</class>
+    <class>io.id.test.Mastercategory</class>
+    <class>io.id.test.Masterprovince</class>
+    <class>io.id.app.model.Sysrole</class>
+    <class>io.id.app.model.Masterprovince</class>
+    <class>io.id.app.model.Masterlocation</class>
+    <class>io.id.app.model.Masterdepartment</class>
+    <class>io.id.app.model.Masterdepartmentmember</class>
+    <class>io.id.app.model.Mastermemberlevel</class>
+    <class>io.id.app.model.Mastertype</class>
+    <class>io.id.app.model.Masterbuilding</class>
+    <class>io.id.app.model.Masterfloor</class>
+    <class>io.id.app.model.Mastercategory</class>
+    <class>io.id.app.model.Sysuser</class>
+    <class>io.id.app.model.Mastercity</class>
+    <class>io.id.app.model.Masterasset</class>
+    <class>io.id.app.model.Masterrate</class>
+    <class>io.id.app.model.Masterassetlocation</class>
+    <class>io.id.app.model.Mastervendor</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/io_asset?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="iot_user"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="iot_user"/>
+    </properties>
+  </persistence-unit>
+</persistence>
