@@ -1,0 +1,29 @@
+#HTTP
+http.port=8080
+http.idle.timeout=30000
+
+#HTTPS
+https.port=8443
+https.idle.timeout=30000
+
+#THREADS
+threads.min=8
+threads.max=100
+
+# ENDPOINT
+app.context=/
+app.service.path=/rest/*
+app.docs.path=/docs/*
+
+# APP CONFIG
+app.config.type=db
+
+#CONFIG VIA HTTP
+app.config.http.url=http://localhost:5050/config/SampleApp
+app.config.http.user=appName
+app.config.http.pass=appPass
+
+#CONFIG VIA DB 
+app.config.db.url=jdbc:mariadb://localhost:3306/config_service
+app.config.db.user=config_service
+app.config.db.pass=config_service
