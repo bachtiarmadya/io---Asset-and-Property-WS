@@ -6,7 +6,10 @@
 package io.id.app.controller;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.statement.Update;
 
 /**
  *
@@ -35,6 +38,40 @@ public class MemberController extends BaseController {
         completed(methodName);
         return isExist;
     }
-    
 
+    public String getMemberId(String email) {
+        String result = null;
+        final String methodName = "getMemberId";
+        start(methodName);
+        final String QUERY = "SELECT departmentmemberid AS memberid FROM masterdepartmentmember WHERE email = :email";
+
+        try ( Handle handle = getHandle()) {
+            List<Map<String, Object>> userResults = handle.createQuery(QUERY).bind("email", email).mapToMap().list();
+            List<Map<String, Object>> userList = userResults;
+            for (Map<String, Object> listUser : userList) {
+                result = listUser.get("memberid").toString();
+            }
+
+        } catch (Exception ex) {
+            log.error(methodName, ex);
+        }
+        completed(methodName);
+        return result;
+    }
+
+    public boolean activateMember(int memberId) {
+        boolean isActive = false;
+        final String methodName = "activateMember";
+        start(methodName);
+        final String QUERY = "UPDATE masterdepartmentmember SET isactive= 1 WHERE departmentmemberid = :id";
+        try ( Handle h = getHandle()) {
+            Update update = h.createUpdate(QUERY)
+                    .bind("id", memberId);
+            isActive = executeUpdate(update);
+        } catch (Exception ex) {
+            log.error(methodName, ex);
+        }
+        completed(methodName);
+        return isActive;
+    }
 }

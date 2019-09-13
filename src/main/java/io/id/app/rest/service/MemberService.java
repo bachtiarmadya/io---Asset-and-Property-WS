@@ -10,6 +10,7 @@ import io.id.app.controller.EmailController;
 import io.id.app.controller.MemberController;
 import io.id.app.controller.OTPController;
 import io.id.app.rest.model.MemberActivationModel;
+import io.id.app.rest.model.MemberResponse;
 import io.id.app.rest.model.MemberValidationModel;
 import io.id.app.rest.model.ServerResponse;
 import javax.ws.rs.Consumes;
@@ -82,8 +83,9 @@ public class MemberService extends BaseService {
             if (isExpiry) {
                 boolean validate = otpController.validateOtp(input.getEmail(), input.getCode(), expiry);
                 if (validate) {
-                    ServerResponse serverResponse = new ServerResponse(Response.Status.OK, "Success");
-                    res = Response.status(Response.Status.OK).entity(serverResponse).build();
+                    String memberId = memberController.getMemberId(input.getEmail());
+                    MemberResponse memberResponse = new MemberResponse(Response.Status.OK,"Success",memberId);
+                    res = Response.status(Response.Status.OK).entity(memberResponse).build();
                 } else {
                     ServerResponse serverResponse = new ServerResponse(Response.Status.INTERNAL_SERVER_ERROR, "Internal server error");
                     res = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(serverResponse).build();

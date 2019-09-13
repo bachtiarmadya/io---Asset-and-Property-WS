@@ -4,6 +4,7 @@ io/id/app/request/AddRateRequest.class
 io/id/app/rest/service/TokenService.class
 META-INF/annotations/io.id.app.health.Health
 io/id/app/util/http/model/HTTPParameter.class
+io/id/app/rest/service/UserService.class
 io/id/app/util/http/model/HTTPHeader.class
 io/id/app/rest/service/AdminService.class
 io/id/app/util/http/handler/HTTPResponseHandler.class
@@ -31,6 +32,7 @@ io/id/app/model/MemberModel.class
 io/id/app/rest/model/ValidateModel.class
 io/id/app/controller/EmailController.class
 io/id/app/controller/MemberController.class
+io/id/app/rest/service/RoleService.class
 io/id/app/util/http/helper/HTTPClientHelper.class
 io/id/app/controller/RateController.class
 io/id/app/util/json/CustomObjectMapper.class
@@ -62,9 +64,11 @@ io/id/app/manager/DocServiceManager.class
 io/id/app/model/AssetInstallRegisterModel.class
 io/id/app/controller/AuditController.class
 io/id/app/util/rest/exception/UnauthorizedException.class
+io/id/app/rest/model/MemberResponse.class
 io/id/app/util/rest/mapper/NotFoundMapper.class
 io/id/app/support/rest/service/PingService.class
 io/id/server/handler/CustomErrorHandler.class
+io/id/app/controller/RoleController.class
 io/id/app/validator/EmailValidator.class
 io/id/server/config/ServerConfigurationManager.class
 io/id/app/util/json/JsonHelper.class
@@ -77,6 +81,7 @@ io/id/app/rest/model/MemberActivationModel.class
 io/id/app/controller/UserController.class
 io/id/app/manager/RestServiceManager.class
 io/id/app/controller/Controller.class
+io/id/app/rest/model/RoleModel.class
 io/id/app/controller/AdminController.class
 io/id/app/request/EditRateRequest.class
 io/id/app/init/ContextListener.class
@@ -89,7 +94,6 @@ io/id/app/controller/LoginController.class
 io/id/app/request/EditProvinceRequest.class
 io/id/app/util/http/model/HTTPRequest$1.class
 io/id/app/rest/model/AssetRequest.class
-io/id/Tester.class
 io/id/app/util/json/LocalDateTimeDeserializer.class
 io/id/app/util/rest/feature/JacksonFeature.class
 io/id/app/util/rest/exception/RESTException.class
