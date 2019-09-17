@@ -5,18 +5,17 @@
  */
 package io.id.app.rest.service;
 
-import io.id.app.controller.RateController;
-import io.id.app.model.RateModel;
-import io.id.app.request.AddRateRequest;
-import io.id.app.request.EditRateRequest;
+import com.codahale.metrics.annotation.Timed;
+import io.id.app.controller.MemberLevelController;
+import io.id.app.model.Mastermemberlevel;
 import io.id.app.rest.model.ServerResponse;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -24,23 +23,37 @@ import javax.ws.rs.core.Response;
  *
  * @author permadi
  */
-@Path("rate")
+@Path("/level")
 @Produces(MediaType.APPLICATION_JSON)
-public class RateService extends BaseService {
+public class MemberLevelService extends BaseService {
 
-    private RateController rateController;
+    private MemberLevelController levelController;
 
-    public RateService() {
+    public MemberLevelService() {
+        this.levelController = new MemberLevelController();
         log = getLogger(this.getClass());
-        this.rateController = new RateController();
+    }
+
+    @GET
+    @Path("/getall")
+    @Timed
+    public Response getAllRole() {
+        Response res;
+        List<Mastermemberlevel> data = levelController.getAll();
+        if (!data.isEmpty()) {
+            res = buildResponse(Response.Status.OK, data);
+        } else {
+            res = buildResponse(Response.Status.NO_CONTENT, data);
+        }
+        return res;
     }
 
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(AddRateRequest input) {
+    public Response create(Mastermemberlevel input) {
         Response res = null;
-        boolean isCreate = rateController.create(input.getRatename(), input.getValue());
+        boolean isCreate = levelController.add(input);
         if (isCreate) {
             ServerResponse serverResponse = new ServerResponse(Response.Status.OK, "Success");
             res = Response.status(Response.Status.OK).entity(serverResponse).build();
@@ -54,10 +67,10 @@ public class RateService extends BaseService {
     @POST
     @Path("/edit")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response edit(EditRateRequest input) {
+    public Response update(Mastermemberlevel input) {
         Response res = null;
-        boolean isUpdate = rateController.edit(input.getRateid(), input.getRatename(), input.getValue());
-        if (isUpdate) {
+        boolean isCreate = levelController.update(input);
+        if (isCreate) {
             ServerResponse serverResponse = new ServerResponse(Response.Status.OK, "Success");
             res = Response.status(Response.Status.OK).entity(serverResponse).build();
         } else {
@@ -68,12 +81,12 @@ public class RateService extends BaseService {
     }
 
     @POST
-    @Path("/delete")
+    @Path("/delete/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response delete(@QueryParam("rateId") int id) {
+    public Response delete(@PathParam("id") int id) {
         Response res = null;
-        boolean isDeleted = rateController.delete(id);
-        if (isDeleted) {
+        boolean isCreate = levelController.delete(id);
+        if (isCreate) {
             ServerResponse serverResponse = new ServerResponse(Response.Status.OK, "Success");
             res = Response.status(Response.Status.OK).entity(serverResponse).build();
         } else {
@@ -83,16 +96,20 @@ public class RateService extends BaseService {
         return res;
     }
 
-    @GET
-    @Path("/list")
-    public Response list() {
-        List<RateModel> output = rateController.getList();
-        return Response.status(Response.Status.OK).entity(output).build();
+    @POST
+    @Path("/activate/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response activate(@PathParam("id") int id) {
+        Response res = null;
+        boolean isCreate = levelController.activate(id);
+        if (isCreate) {
+            ServerResponse serverResponse = new ServerResponse(Response.Status.OK, "Success");
+            res = Response.status(Response.Status.OK).entity(serverResponse).build();
+        } else {
+            ServerResponse serverResponse = new ServerResponse(Response.Status.INTERNAL_SERVER_ERROR, "Internal server error");
+            res = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(serverResponse).build();
+        }
+        return res;
     }
 
-    @GET
-    public Response find(@QueryParam("rateId") int id) {
-        List<RateModel> output = rateController.get(id);
-        return Response.status(Response.Status.OK).entity(output).build();
-    }
 }

@@ -5,7 +5,7 @@
  */
 package io.id.app.controller;
 
-import io.id.app.rest.model.RoleModel;
+import io.id.app.model.Mastermemberlevel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,23 +16,23 @@ import org.jdbi.v3.core.statement.Update;
  *
  * @author permadi
  */
-public class RoleController extends BaseController {
+public class MemberLevelController extends BaseController {
 
-    public RoleController() {
+    public MemberLevelController() {
         log = getLogger(this.getClass());
     }
 
-    public boolean add(RoleModel role) {
+    public boolean add(Mastermemberlevel input) {
         boolean isCreated = false;
 
-        final String methodName = "AddRole";
+        final String methodName = "Add";
         start(methodName);
-        final String QUERY = "INSERT INTO sysrole( rolecode, rolename, description, isactive) VALUES (:rolecode, :rolename, :description, 0)";
+        final String QUERY = "INSERT INTO mastermemberlevel (levelcode, levelname, description, isactive) VALUES( :levelcode, :levelname, :description, 0);";
         try ( Handle h = getHandle()) {
             Update update = h.createUpdate(QUERY)
-                    .bind("rolecode", role.getRolecode())
-                    .bind("rolename", role.getRolename())
-                    .bind("description", role.getDescription());
+                    .bind("levelcode", input.getLevelcode())
+                    .bind("levelname", input.getLevelname())
+                    .bind("description", input.getDescription());
             isCreated = executeUpdate(update);
         } catch (Exception ex) {
             log.error(methodName, ex);
@@ -41,16 +41,17 @@ public class RoleController extends BaseController {
         return isCreated;
     }
 
-    public boolean update(RoleModel role) {
+    public boolean update(Mastermemberlevel input) {
         boolean isUpdate = false;
-        final String methodName = "UpdateRole";
+        final String methodName = "Update";
         start(methodName);
-        String sql = "UPDATE sysrole SET rolename = :rolename, description = :description WHERE roleid = :roleid";
+        String QUERY = "UPDATE mastermemberlevel SET levelcode = :levelcode, levelname = :levelname', description = :description WHERE memberlevelid = :memberlevelid;";
         try ( Handle handle = getHandle()) {
-            Update update = handle.createUpdate(sql)
-                    .bind("roleid", role.getRoleid())
-                    .bind("rolename", role.getRolename())
-                    .bind("description", role.getDescription());
+            Update update = handle.createUpdate(QUERY)
+                    .bind("memberlevelid", input.getMemberlevelid())
+                    .bind("levelcode", input.getLevelcode())
+                    .bind("levelname", input.getLevelname())
+                    .bind("description", input.getDescription());
             isUpdate = executeUpdate(update);
         } catch (SQLException ex) {
             log.error(methodName, ex);
@@ -61,12 +62,12 @@ public class RoleController extends BaseController {
 
     public boolean delete(int id) {
         boolean isDelete = false;
-        final String methodName = "DeleteRole";
+        final String methodName = "Delete";
         start(methodName);
-        String sql = "DELETE FROM sysrole WHERE roleid = :id";
+        String sql = "DELETE FROM mastermemberlevel WHERE memberlevelid = :memberlevelid";
         try ( Handle handle = getHandle()) {
             Update update = handle.createUpdate(sql)
-                    .bind("id", id);
+                    .bind("memberlevelid", id);
             isDelete = executeUpdate(update);
         } catch (SQLException ex) {
             log.error(methodName, ex);
@@ -77,12 +78,12 @@ public class RoleController extends BaseController {
 
     public boolean activate(int id) {
         boolean isActive = false;
-        final String methodName = "ActivateRole";
+        final String methodName = "Activate";
         start(methodName);
-        String sql = "UPDATE sysrole SET isactive = 1 WHERE roleid = :id";
+        String sql = "UPDATE mastermemberlevel SET isactive = 1 WHERE memberlevelid = :memberlevelid";
         try ( Handle handle = getHandle()) {
             Update update = handle.createUpdate(sql)
-                    .bind("id", id);
+                    .bind("memberlevelid", id);
             isActive = executeUpdate(update);
         } catch (SQLException ex) {
             log.error(methodName, ex);
@@ -91,16 +92,16 @@ public class RoleController extends BaseController {
         return isActive;
     }
 
-    public List<RoleModel> getAll() {
-        List<RoleModel> output = new ArrayList<>();
-        final String methodName = "ListRole";
+    public List<Mastermemberlevel> getAll() {
+        List<Mastermemberlevel> output = new ArrayList<>();
+        final String methodName = "List";
         start(methodName);
 
-        String sql = "SELECT * FROM sysrole";
+        String sql = "SELECT * FROM mastermemberlevel";
 
         try ( Handle handle = getHandle()) {
 
-            output = handle.createQuery(sql).mapToBean(RoleModel.class).list();
+            output = handle.createQuery(sql).mapToBean(Mastermemberlevel.class).list();
 
         } catch (Exception ex) {
             log.error(methodName, ex);
