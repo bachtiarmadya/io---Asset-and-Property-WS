@@ -41,7 +41,7 @@ public class LoginService extends BaseService{
         boolean isExist = loginController.checkUsername(input.getUname());
         if (isExist) {
 
-            String isValid = loginController.loginMobile(input.getUname(), input.getPassword());
+            String isValid = loginController.loginMobile(input);
             if (isValid != null) {
                 
                 ServerResponse serverResponse = new ServerResponse(Response.Status.OK, "Success");

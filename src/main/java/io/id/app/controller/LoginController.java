@@ -6,6 +6,7 @@
 package io.id.app.controller;
 
 
+import io.id.app.rest.model.AuthenticateModel;
 import java.util.List;
 import java.util.Map;
 import org.jdbi.v3.core.Handle;
@@ -20,7 +21,7 @@ public class LoginController extends BaseController {
         log = getLogger(this.getClass());
     }
 
-    public String login(String uname, String password) {
+    public String login(AuthenticateModel input) {
         String output = null;
         final String methodName = "webAppLogin";
         start(methodName);
@@ -28,7 +29,7 @@ public class LoginController extends BaseController {
         final String roleQuery = "SELECT `rolecode` FROM `sysrole` WHERE `roleid` = :roleid";
 
         try (Handle handle = getHandle()) {
-            List<Map<String, Object>> userResults = handle.createQuery(userQuery).bind("uname", uname).bind("pwd", password).mapToMap().list();
+            List<Map<String, Object>> userResults = handle.createQuery(userQuery).bind("uname", input.getUname()).bind("pwd", input.getPassword()).mapToMap().list();
             List<Map<String, Object>> userList = userResults;
 
             for (Map<String, Object> listUser : userList) {
@@ -50,7 +51,7 @@ public class LoginController extends BaseController {
         return output;
     }
     
-    public String loginMobile(String uname, String password) {
+    public String loginMobile(AuthenticateModel input) {
         String output = null;
         final String methodName = "mobileLogin";
         start(methodName);
@@ -58,7 +59,7 @@ public class LoginController extends BaseController {
         final String roleQuery = "SELECT membercode FROM masterdepartmentmember WHERE departmentmemberid = :departmentmemberid";
  
         try (Handle handle = getHandle()) {
-            List<Map<String, Object>> userResults = handle.createQuery(userQuery).bind("uname", uname).bind("pwd", password).mapToMap().list();
+            List<Map<String, Object>> userResults = handle.createQuery(userQuery).bind("uname", input.getUname()).bind("pwd", input.getPassword()).mapToMap().list();
             List<Map<String, Object>> userList = userResults;
 
             for (Map<String, Object> listUser : userList) {

@@ -13,7 +13,7 @@ public class MemberModel {
     
     private int departmentmemberid;
     private String membercode;
-    private String username;
+    private String membername;
     private String email;
     private String imageaddress;
     private String description;
@@ -24,10 +24,10 @@ public class MemberModel {
     public MemberModel() {
     }
 
-    public MemberModel(int departmentmemberid, String membercode, String username, String email, String imageaddress, String description, int memberlevelid, int departmentid, int isactive) {
+    public MemberModel(int departmentmemberid, String membercode, String membername, String email, String imageaddress, String description, int memberlevelid, int departmentid, int isactive) {
         this.departmentmemberid = departmentmemberid;
         this.membercode = membercode;
-        this.username = username;
+        this.membername = membername;
         this.email = email;
         this.imageaddress = imageaddress;
         this.description = description;
@@ -52,12 +52,12 @@ public class MemberModel {
         this.membercode = membercode;
     }
 
-    public String getUsername() {
-        return username;
+    public String getMembername() {
+        return membername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMembername(String membername) {
+        this.membername = membername;
     }
 
     public String getEmail() {

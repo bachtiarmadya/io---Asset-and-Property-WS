@@ -27,7 +27,7 @@ public class AdminController extends BaseController {
         final String methodName = "getListOfUser";
         start(methodName);
 
-        final String sql = "SELECT `userid`, `username`, `password`, `alias`, `roleid`, `departmentmemberid`, `isactive` FROM `sysuser`;";
+        final String sql = "SELECT * FROM `sysuser`;";
 
         try ( Handle handle = getHandle()) {
             output = handle.createQuery(sql).mapToBean(UserModel.class).list();
@@ -43,7 +43,7 @@ public class AdminController extends BaseController {
         List<MemberModel> output = new ArrayList<>();
         final String methodName = "getListOfUser";
         start(methodName);
-        final String sql = "SELECT departmentmemberid, membercode, membername, email, imageaddress, description, memberlevelid, departmentid, isactive FROM masterdepartmentmember ;";
+        final String sql = "SELECT * FROM masterdepartmentmember ;";
 
         try ( Handle handle = getHandle()) {
             output = handle.createQuery(sql).mapToBean(MemberModel.class).list();
@@ -54,7 +54,7 @@ public class AdminController extends BaseController {
         return output;
     }
 
-    public boolean addNewMember(String membercode, String membername, String email, String imageAddress, String description, int memberlevelid, int departmentid) {
+    public boolean addNewMember(MemberModel input) {
         boolean isUpdate = false;
         final String methodName = "addNewMember";
         start(methodName);
@@ -65,13 +65,13 @@ public class AdminController extends BaseController {
 
         try ( Handle h = getHandle()) {
             Update update = h.createUpdate(QUERY)
-                    .bind("membercode", membercode)
-                    .bind("membername", membername)
-                    .bind("email", email)
-                    .bind("imageaddress", imageAddress)
-                    .bind("description", description)
-                    .bind("memberlevelid", memberlevelid)
-                    .bind("department", departmentid);
+                    .bind("membercode", input.getMembercode())
+                    .bind("membername", input.getMembername())
+                    .bind("email", input.getEmail())
+                    .bind("imageaddress", input.getImageaddress())
+                    .bind("description", input.getImageaddress())
+                    .bind("memberlevelid", input.getMemberlevelid())
+                    .bind("department", input.getDepartmentid());
             isUpdate = executeUpdate(update);
         } catch (Exception ex) {
             log.error(methodName, ex);

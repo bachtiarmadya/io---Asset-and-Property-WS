@@ -39,7 +39,7 @@ public class AdminService extends BaseService {
     }
 
     @GET
-    @Path("/getmember")
+    @Path("/listmember")
     @Timed
     public Response getAllMember() {
         Response res;
@@ -53,7 +53,7 @@ public class AdminService extends BaseService {
     }
 
     @GET
-    @Path("/user/getalluser")
+    @Path("/listuser")
     @Timed
     public Response getAllUser() {
         Response res;
@@ -68,13 +68,13 @@ public class AdminService extends BaseService {
     }
 
     @POST
-    @Path("/user/add")
+    @Path("/member/add")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createNewMember(MemberModel input) {
         Response res;
         boolean isExist = adminController.checkMemberCode(input.getMembercode());
         if (!isExist) {
-            boolean isCreate = adminController.addNewMember(input.getMembercode(), input.getUsername(), input.getEmail(), input.getImageaddress(), input.getDescription(), input.getMemberlevelid(), input.getDepartmentid());
+            boolean isCreate = adminController.addNewMember(input);
             if (isCreate) {
                 ServerResponse serverResponse = new ServerResponse(Response.Status.CREATED, "Success");
                 res = Response.status(Response.Status.CREATED).entity(serverResponse).build();
@@ -90,7 +90,7 @@ public class AdminService extends BaseService {
     }
 
     @POST
-    @Path("/user/delete")
+    @Path("/member/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteMember(@QueryParam("departmentmemberid") int id) {
         Response res;
