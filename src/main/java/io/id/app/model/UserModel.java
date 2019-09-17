@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "User information Model")
 public class UserModel {
+
     @JsonProperty("userId")
     @ApiModelProperty(name = "userId", value = "Id of user", required = true)
     private int userid;
@@ -105,6 +106,5 @@ public class UserModel {
     public void setIsactive(int isactive) {
         this.isactive = isactive;
     }
-    
-    
+
 }

@@ -6,11 +6,10 @@
 package io.id.mobile.service;
 
 import io.id.app.controller.UserController;
-import io.id.app.rest.model.AuthenticateModel;
 import io.id.app.rest.model.ServerResponse;
 import io.id.app.rest.service.BaseService;
 import io.id.app.model.UserDetailsModel;
-import java.util.ArrayList;
+import io.id.app.request.UserRequest;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -37,9 +36,9 @@ public class UserService extends BaseService {
     @Path("/userdetails")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getUserDetails(AuthenticateModel input) {
+    public Response getUserDetails(UserRequest input) {
         Response res;
-        List<UserDetailsModel> data = userController.userDetails(input.getUname(), input.getPassword());
+        List<UserDetailsModel> data = userController.userDetails(input);
 
         if (!data.isEmpty()) {
             res = Response.status(Response.Status.OK).entity(data).build();

@@ -15,9 +15,9 @@ import org.jdbi.v3.core.statement.Update;
  *
  * @author permadi
  */
-public class MemberController extends BaseController {
+public class MemberActivationController extends BaseController {
 
-    public MemberController() {
+    public MemberActivationController() {
         log = getLogger(this.getClass());
     }
 
@@ -57,21 +57,5 @@ public class MemberController extends BaseController {
         }
         completed(methodName);
         return result;
-    }
-
-    public boolean activateMember(int memberId) {
-        boolean isActive = false;
-        final String methodName = "activateMember";
-        start(methodName);
-        final String QUERY = "UPDATE masterdepartmentmember SET isactive= 1 WHERE departmentmemberid = :id";
-        try ( Handle h = getHandle()) {
-            Update update = h.createUpdate(QUERY)
-                    .bind("id", memberId);
-            isActive = executeUpdate(update);
-        } catch (Exception ex) {
-            log.error(methodName, ex);
-        }
-        completed(methodName);
-        return isActive;
     }
 }

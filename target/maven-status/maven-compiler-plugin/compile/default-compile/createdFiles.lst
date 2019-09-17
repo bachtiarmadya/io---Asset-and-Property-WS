@@ -24,8 +24,8 @@ io/id/app/rest/service/LoginService.class
 io/id/app/rest/service/ProvinceService.class
 io/id/app/util/rest/model/ServiceResponse.class
 io/id/app/util/json/LocalDateTimeSerializer.class
-io/id/app/model/Mastermemberlevel_.class
 io/id/Runner.class
+io/id/app/model/Sysuser.class
 io/id/app/model/UserDetailsModel.class
 io/id/app/util/http/model/HTTPRequest.class
 io/id/app/rest/service/RateService.class
@@ -34,7 +34,6 @@ io/id/app/model/AssetDetailsModel.class
 io/id/app/model/MemberModel.class
 io/id/app/rest/model/ValidateModel.class
 io/id/app/controller/EmailController.class
-io/id/app/controller/MemberController.class
 io/id/app/rest/service/RoleService.class
 io/id/app/util/http/helper/HTTPClientHelper.class
 io/id/app/controller/RateController.class
@@ -43,6 +42,7 @@ io/id/app/util/rest/mapper/BadRequestMapper.class
 io/id/app/support/registry/MetricsRegistry.class
 io/id/app/controller/TokenController.class
 io/id/app/util/http/model/HTTPResponse.class
+io/id/app/rest/service/MemberActivationService.class
 io/id/app/health/Health.class
 io/id/app/support/rest/service/MetricsService.class
 io/id/mobile/service/LoginService.class
@@ -54,6 +54,8 @@ io/id/app/rest/model/ValidateTokenModel.class
 io/id/app/util/configuration/Configuration.class
 io/id/app/util/rest/mapper/RESTExceptionMapper.class
 io/id/app/rest/service/BaseService.class
+io/id/app/request/UserRequest.class
+io/id/app/controller/MemberActivationController.class
 io/id/app/model/ProvinceModel.class
 io/id/app/rest/filter/AuthenticationFilter.class
 io/id/app/util/rest/mapper/IllegalStateMapper.class
@@ -80,6 +82,7 @@ io/id/app/model/UserModel.class
 io/id/app/controller/OTPController.class
 io/id/app/rest/model/ChangePasswordRequest.class
 io/id/app/controller/ProvinceController.class
+io/id/app/model/Sysrole.class
 io/id/app/rest/model/SampleRequest.class
 io/id/app/rest/model/MemberActivationModel.class
 io/id/app/controller/UserController.class
@@ -101,14 +104,13 @@ io/id/app/rest/model/AssetRequest.class
 io/id/app/controller/MemberLevelController.class
 io/id/app/util/json/LocalDateTimeDeserializer.class
 io/id/app/util/rest/feature/JacksonFeature.class
+io/id/app/model/Masterdepartmentmember.class
 io/id/app/util/rest/exception/RESTException.class
 io/id/app/manager/DBConnectionManager.class
-io/id/app/model/Masterdepartment_.class
 io/id/app/controller/AssetController.class
 io/id/app/controller/PasswordController.class
 io/id/app/controller/EmailController$1.class
 io/id/app/controller/ConfigurationController.class
-io/id/app/rest/service/MemberService.class
 io/id/app/util/log/BaseLogger.class
 io/id/app/rest/model/MemberValidationModel.class
 io/id/app/rest/model/ServerResponse.class

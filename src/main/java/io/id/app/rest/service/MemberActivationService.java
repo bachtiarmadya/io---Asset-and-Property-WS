@@ -7,7 +7,7 @@ package io.id.app.rest.service;
 
 import io.id.app.configuration.ApplicationConfiguration;
 import io.id.app.controller.EmailController;
-import io.id.app.controller.MemberController;
+import io.id.app.controller.MemberActivationController;
 import io.id.app.controller.OTPController;
 import io.id.app.rest.model.MemberActivationModel;
 import io.id.app.rest.model.MemberResponse;
@@ -26,15 +26,15 @@ import javax.ws.rs.core.Response;
  */
 @Path("member")
 @Produces(MediaType.APPLICATION_JSON)
-public class MemberService extends BaseService {
+public class MemberActivationService extends BaseService {
 
-    private MemberController memberController;
+    private MemberActivationController memberController;
     private EmailController emailController;
     private OTPController otpController;
 
-    public MemberService() {
+    public MemberActivationService() {
         log = getLogger(this.getClass());
-        this.memberController = new MemberController();
+        this.memberController = new MemberActivationController();
         this.emailController = new EmailController();
         this.otpController = new OTPController();
     }
