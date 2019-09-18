@@ -12,9 +12,12 @@ META-INF/annotations/io.id.app.controller.Controller
 io/id/app/rest/model/AuthenticateModel.class
 io/id/app/util/http/HTTPConnectionManager.class
 io/id/app/configuration/ApplicationConfiguration.class
+io/id/app/controller/VendorController.class
 io/id/app/request/AddProvinceRequest.class
+io/id/app/rest/service/VendorService.class
 io/id/app/model/Masterdepartment.class
 io/id/app/util/log/AppLogger.class
+io/id/app/controller/AssetTypeController.class
 io/id/app/util/http/model/HTTPDeleteWithBody.class
 io/id/server/config/ServerConstant.class
 io/id/app/gateway/model/SampleModel.class
@@ -47,8 +50,10 @@ io/id/app/health/Health.class
 io/id/app/support/rest/service/MetricsService.class
 io/id/mobile/service/LoginService.class
 io/id/mobile/service/AssetService.class
+io/id/app/controller/AssetCategoryController.class
 io/id/app/util/configuration/BaseConfigurationManager.class
 io/id/app/controller/BaseController.class
+io/id/app/model/Mastercategory.class
 io/id/app/util/log/LogLevel.class
 io/id/app/rest/model/ValidateTokenModel.class
 io/id/app/util/configuration/Configuration.class
@@ -56,6 +61,7 @@ io/id/app/util/rest/mapper/RESTExceptionMapper.class
 io/id/app/rest/service/BaseService.class
 io/id/app/request/UserRequest.class
 io/id/app/controller/MemberActivationController.class
+io/id/app/model/Mastervendor.class
 io/id/app/model/ProvinceModel.class
 io/id/app/rest/filter/AuthenticationFilter.class
 io/id/app/util/rest/mapper/IllegalStateMapper.class
@@ -76,11 +82,14 @@ io/id/server/handler/CustomErrorHandler.class
 io/id/app/controller/RoleController.class
 io/id/app/validator/EmailValidator.class
 io/id/server/config/ServerConfigurationManager.class
+io/id/app/rest/service/AssetCategoryService.class
+io/id/app/model/Mastertype.class
 io/id/app/util/json/JsonHelper.class
 io/id/app/controller/DepartmentController.class
 io/id/app/model/UserModel.class
 io/id/app/controller/OTPController.class
 io/id/app/rest/model/ChangePasswordRequest.class
+io/id/app/rest/service/AssetTypeService.class
 io/id/app/controller/ProvinceController.class
 io/id/app/model/Sysrole.class
 io/id/app/rest/model/SampleRequest.class

@@ -5,7 +5,8 @@
  */
 package io.id.app.controller;
 
-import io.id.app.model.ProvinceModel;
+import io.id.app.model.Mastercategory;
+import io.id.app.model.Mastertype;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,21 +17,22 @@ import org.jdbi.v3.core.statement.Update;
  *
  * @author permadi
  */
-public class ProvinceController extends BaseController {
+public class AssetTypeController extends BaseController {
 
-    public ProvinceController() {
+    public AssetTypeController() {
         log = getLogger(this.getClass());
     }
 
-    public boolean create(String provinceCode, String provinceName) {
+    public boolean create(Mastertype input) {
         boolean isCreate = false;
-        final String methodName = "createNewProvince";
+        final String methodName = "add";
         start(methodName);
-        String sql = "INSERT INTO masterprovince ( provincecode, provincename, isactive) VALUES (:code, :name, 0)";
+        String sql = "INSERT INTO mastertype (assettype, description, categoryid, isactive) VALUES( :assettype, :description, :categoryid, 0);";
         try ( Handle handle = getHandle()) {
             Update update = handle.createUpdate(sql)
-                    .bind("code", provinceCode)
-                    .bind("name", provinceName);
+                    .bind("assettype", input.getAssettype())
+                    .bind("description", input.getDescription())
+                    .bind("categoryid", input.getCategoryid());
             isCreate = executeUpdate(update);
         } catch (SQLException ex) {
             log.error(methodName, ex);
@@ -39,17 +41,17 @@ public class ProvinceController extends BaseController {
         return isCreate;
     }
 
-    public boolean update(int provinceId, String provinceCode, String provinceName, int isActive) {
+    public boolean edit(Mastertype input) {
         boolean isUpdate = false;
-        final String methodName = "updateProvince";
+        final String methodName = "edit";
         start(methodName);
-        String sql = "UPDATE masterprovince SET provincecode= :code, provincename = :name, isactive = :active WHERE provinceid = :id";
+        String sql = "UPDATE mastertype SET assettype = :assettype, description = :description, categoryid = :categoryid WHERE typeid = :typeid;";
         try ( Handle handle = getHandle()) {
             Update update = handle.createUpdate(sql)
-                    .bind("id", provinceId)
-                    .bind("code", provinceCode)
-                    .bind("name", provinceName)
-                    .bind("active", isActive);
+                    .bind("typeid", input.getTypeid())
+                    .bind("assettype", input.getAssettype())
+                    .bind("description", input.getDescription())
+                    .bind("categoryid", input.getCategoryid());
             isUpdate = executeUpdate(update);
         } catch (SQLException ex) {
             log.error(methodName, ex);
@@ -58,14 +60,14 @@ public class ProvinceController extends BaseController {
         return isUpdate;
     }
 
-    public boolean delete(int provinceId) {
+    public boolean delete(int id) {
         boolean isDelete = false;
-        final String methodName = "deleteProvince";
+        final String methodName = "delete";
         start(methodName);
-        String sql = "DELETE FROM masterprovince WHERE provinceid = :id";
+        String sql = "DELETE FROM mastertype WHERE typeid = :typeid";
         try ( Handle handle = getHandle()) {
             Update update = handle.createUpdate(sql)
-                    .bind("id", provinceId);
+                    .bind("typeid", id);
             isDelete = executeUpdate(update);
         } catch (SQLException ex) {
             log.error(methodName, ex);
@@ -74,13 +76,14 @@ public class ProvinceController extends BaseController {
         return isDelete;
     }
 
-    public List<ProvinceModel> getList() {
-        List<ProvinceModel> output = new ArrayList<>();
-        final String methodName = "listProvince";
+    public List<Mastertype> getList() {
+        List<Mastertype> output = new ArrayList<>();
+        final String methodName = "getList";
         start(methodName);
-        String sql = "SELECT provinceid, provincecode, provincename, isactive FROM masterprovince";
+        String sql = "SELECT * FROM mastertype ";
         try ( Handle handle = getHandle()) {
-            output = handle.createQuery(sql).mapToBean(ProvinceModel.class).list();
+            output = handle.createQuery(sql)
+                    .mapToBean(Mastertype.class).list();
         } catch (SQLException ex) {
             log.error(methodName, ex);
         }
@@ -88,15 +91,15 @@ public class ProvinceController extends BaseController {
         return output;
     }
 
-    public List<ProvinceModel> find(int provinceId) {
-        List<ProvinceModel> output = new ArrayList<>();
-        final String methodName = "findProvince";
+    public List<Mastertype> get(int id) {
+        List<Mastertype> output = new ArrayList<>();
+        final String methodName = "get";
         start(methodName);
-        String sql = "SELECT provinceid, provincecode, provincename, isactive FROM masterprovince WHERE provinceid = :id";
+        String sql = "SELECT * FROM mastertype WHERE typeid = :typeid";
         try ( Handle handle = getHandle()) {
             output = handle.createQuery(sql)
-                    .bind("id", provinceId)
-                    .mapToBean(ProvinceModel.class).list();
+                    .bind("typeid", id)
+                    .mapToBean(Mastertype.class).list();
         } catch (SQLException ex) {
             log.error(methodName, ex);
         }
@@ -106,12 +109,12 @@ public class ProvinceController extends BaseController {
 
     public boolean activate(int id) {
         boolean isUpdate = false;
-        final String methodName = "updateProvince";
+        final String methodName = "activate";
         start(methodName);
-        String sql = "UPDATE masterprovince SET isactive = 1 WHERE provinceid = :id";
+        String sql = "UPDATE mastertype SET isactive = 1 WHERE typeid = :typeid;";
         try ( Handle handle = getHandle()) {
             Update update = handle.createUpdate(sql)
-                    .bind("id", id);
+                    .bind("typeid", id);
             isUpdate = executeUpdate(update);
         } catch (SQLException ex) {
             log.error(methodName, ex);
@@ -119,4 +122,5 @@ public class ProvinceController extends BaseController {
         completed(methodName);
         return isUpdate;
     }
+
 }
