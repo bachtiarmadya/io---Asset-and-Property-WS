@@ -279,7 +279,7 @@
         <log4j.version>2.11.1</log4j.version>
         <metrics.version>4.0.5</metrics.version>
         <httpclient.version>4.5.8</httpclient.version>
-        <jetty.version>9.4.20.v20190813</jetty.version>
+        <jetty.version>11.0.1</jetty.version>
         <unbound.version>4.0.10</unbound.version>
         <classindex.version>3.6</classindex.version>
         <javaxmail.version>1.5.0-b01</javaxmail.version>
