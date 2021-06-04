@@ -278,7 +278,7 @@
         <servlet.version>4.0.0</servlet.version>
         <log4j.version>2.11.1</log4j.version>
         <metrics.version>4.0.5</metrics.version>
-        <httpclient.version>4.5.8</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <jetty.version>9.4.20.v20190813</jetty.version>
         <unbound.version>4.0.10</unbound.version>
         <classindex.version>3.6</classindex.version>
